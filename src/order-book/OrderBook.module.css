@@ -261,6 +261,8 @@
 .tooltip {
   position: fixed;
   z-index: 10;
+  left: var(--tip-left);
+  top: var(--tip-top);
   transform: translate(calc(-100% - 14px), -50%);
   display: flex;
   flex-direction: column;
@@ -360,5 +362,14 @@
   .ladder [data-side='bid'] .row[data-range]::after {
     left: auto;
     right: 0;
+  }
+
+  .tooltip {
+    left: 50%;
+    top: auto;
+    bottom: 16px;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 360px;
   }
 }

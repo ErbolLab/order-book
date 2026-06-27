@@ -96,7 +96,10 @@ export function OrderBook() {
       </footer>
 
       {summary && hover && (
-        <div className={styles.tooltip} style={{ left: widgetLeft, top: hover.y }}>
+        <div
+          className={styles.tooltip}
+          style={{ '--tip-left': `${widgetLeft}px`, '--tip-top': `${hover.y}px` }}
+        >
           <div>
             <span>Distance from Mid</span>
             <b>{summary.distance.toFixed(4)}%</b>
