@@ -1,0 +1,364 @@
+.widget {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'cv01' 1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+}
+
+.title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--text);
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 12px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--text-faint);
+  border-top: 1px solid var(--border);
+}
+
+.columns span:nth-child(2),
+.columns span:nth-child(3) {
+  text-align: right;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 24px;
+  padding: 0 16px;
+  font-size: 12.5px;
+  cursor: default;
+  isolation: isolate;
+}
+
+.depth {
+  position: absolute;
+  inset: 2px auto 2px 0;
+  width: 100%;
+  z-index: -1;
+  border-radius: 2px;
+  transform-origin: left;
+}
+
+.row[data-side='ask'] .depth {
+  background: color-mix(in srgb, var(--red) 15%, transparent);
+}
+
+.row[data-side='bid'] .depth {
+  background: color-mix(in srgb, var(--green) 14%, transparent);
+}
+
+.row:hover,
+.row[data-range] {
+  background: var(--row-hover);
+}
+
+.row[data-range]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.row[data-side='ask'][data-range]::after {
+  background: var(--red);
+}
+
+.row[data-side='bid'][data-range]::after {
+  background: var(--green);
+}
+
+.price {
+  font-weight: 500;
+}
+
+.row:hover .price {
+  font-weight: 700;
+}
+
+.row[data-side='ask'] .price {
+  color: var(--red);
+}
+
+.row[data-side='bid'] .price {
+  color: var(--green);
+}
+
+.size,
+.total {
+  text-align: right;
+}
+
+.size {
+  color: var(--text);
+}
+
+.total {
+  color: var(--text-dim);
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  animation: flash 0.4s ease-out forwards;
+}
+
+.row[data-side='ask'] .flash {
+  background: color-mix(in srgb, var(--red) 12%, transparent);
+}
+
+.row[data-side='bid'] .flash {
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+}
+
+@keyframes flash {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.spread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 16px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--panel-2);
+}
+
+.spreadMid {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  transition: color 0.2s;
+}
+
+.spreadMid[data-dir='up'] {
+  color: var(--green);
+}
+
+.spreadMid[data-dir='down'] {
+  color: var(--red);
+}
+
+.spreadMid[data-dir='flat'] {
+  color: var(--text);
+}
+
+.spreadArrow {
+  width: 9px;
+  height: 9px;
+  transition: transform 0.2s;
+}
+
+.spreadMid[data-dir='down'] .spreadArrow {
+  transform: rotate(180deg);
+}
+
+.spreadMid[data-dir='flat'] .spreadArrow {
+  opacity: 0;
+}
+
+.spreadInfo {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.spreadValue {
+  color: var(--text-dim);
+}
+
+.footer {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-top: 1px solid var(--border);
+}
+
+.imbalance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.imbLabelBid {
+  color: var(--green);
+}
+
+.imbLabelAsk {
+  color: var(--red);
+}
+
+.imbTrack {
+  flex: 1;
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--panel-2);
+}
+
+.imbBid {
+  background: var(--green);
+  transition: width 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.imbAsk {
+  background: var(--red);
+  transition: width 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 10;
+  transform: translate(calc(-100% - 14px), -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 230px;
+  padding: 12px 14px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.tooltip div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.tooltip span {
+  color: var(--text-dim);
+}
+
+.tooltip b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.loading {
+  height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .depth,
+  .imbBid,
+  .imbAsk,
+  .flash {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Tablet & mobile: bids and asks side by side (bids mirrored), like Hyperliquid. */
+@media (max-width: 768px) {
+  .columns {
+    display: none;
+  }
+
+  .ladder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'spread spread'
+      'bids asks';
+  }
+
+  .ladder .spread {
+    grid-area: spread;
+  }
+
+  .ladder [data-side='ask'] {
+    grid-area: asks;
+    flex-direction: column-reverse;
+  }
+
+  .ladder [data-side='bid'] {
+    grid-area: bids;
+  }
+
+  .ladder [data-side='bid'] .price {
+    order: 3;
+    text-align: right;
+  }
+
+  .ladder [data-side='bid'] .size {
+    order: 2;
+    text-align: left;
+  }
+
+  .ladder [data-side='bid'] .total {
+    order: 1;
+    text-align: left;
+  }
+
+  .ladder [data-side='bid'] .depth {
+    left: auto;
+    right: 0;
+    transform-origin: right;
+  }
+
+  .ladder [data-side='bid'] .row[data-range]::after {
+    left: auto;
+    right: 0;
+  }
+}
