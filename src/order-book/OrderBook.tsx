@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
 import { SIG_FIG_OPTIONS, SYMBOLS } from './lib/feed'
 import type { NSigFigs } from './lib/feed'
 import { formatFixed, formatUsd } from '../lib/format'
@@ -98,7 +99,7 @@ export function OrderBook() {
       {summary && hover && (
         <div
           className={styles.tooltip}
-          style={{ '--tip-left': `${widgetLeft}px`, '--tip-top': `${hover.y}px` }}
+          style={{ '--tip-left': `${widgetLeft}px`, '--tip-top': `${hover.y}px` } as CSSProperties}
         >
           <div>
             <span>Distance from Mid</span>
